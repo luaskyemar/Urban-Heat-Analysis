@@ -11,7 +11,7 @@ Each file contains surface reflectance and thermal bands needed to compute NDVI 
 
 1. Data Preparation  
    - Load Landsat scenes  
-   - Compute NDVI and LST  
+   - Compute NDVI and LST for each year
    - Combine all yearly scenes into a multi-year data cube  
 
 2. Trend Analysis  
@@ -66,20 +66,12 @@ import scipy.stats as stats
 ## Workflow Summary 
 ### Data Preparation  
 #### Load the Scenes 
-files = ["../data/raw/Landsat/LandsatComposite_Zurich_1985.tif", ...]
-This creates a list of file paths pointing to each Landsat composite you want to process.
-Each file corresponds to one year in your time series. 
-
-years = [1985, 1988, ..., 2024]
-This is the list of actual years that match the files above.
-
-times = pd.to_datetime(years)
-This converts the list of integers into proper datetime objects, which xarray understands as a time dimension.
+A list of file paths pointing to each Landsat composite you want to process is created. Each file corresponds to one year in your time series. Then a list of the actual years that match the files is created. 
+Then the list of integers is converted into proper datetime objects, which xarray understands as a time dimension.
 
 #### Compute LST and NDVI using a function
 Each Landsat scene is processed using the function `process_scene()`.
 The function:
-
 - opens the raster file with `xarray`
 - extracts the red, near-infrared, and thermal bands (The band selection assumes the following structure: Band 3 = Red, Band 4 = Near- infrared (NIR), Band 7 = Thermal)
 - calculates NDVI
@@ -91,8 +83,9 @@ The function:
 Each scene is processed individually, assigned a time coordinate, and then combined into one data cube.
 The resulting object, `ds_cube`, contains NDVI and LST values, stored as data variables, for every available year.
 The data cube contains:
+- dimensions: time, x,y, 
+- coordinates: time, year (same thing, but time is in the appropraite format), y, x, spatial_ref, band
 - variables: ndvi, lst
-- coordinates: time, year (same thing, but year is in the appropraite format. 
 
 ### Trend Analysis  
 #### Compute Mean NDVI and LST Over Time
@@ -100,15 +93,7 @@ This calculates the spatial mean of LST and NDVI for each year in the datacube.
 By averaging across the x and y dimensions, we obtain a single representative value per year, which is used to analyze long‑term temporal trends.
 
 #### Plot Temporal Trends of LST and NDVI
-This figure shows how mean NDVI and mean LST evolved between 1985 and 2024.
-
-LST is plotted on the left y‑axis (red)
-
-NDVI is plotted on the right y‑axis (green)
-
-Both share the same x‑axis (years)
-
-This dual‑axis plot provides a high‑level overview of vegetation and temperature dynamics over time.
+This figure shows how mean NDVI and mean LST evolved between 1985 and 2024. LST is plotted on the left y‑axis (red), while NDVI is plotted on the right y‑axis (green). Both share the same x‑axis (years). This dual‑axis plot provides an overview of NDVI and LST dynamics over time.
 
 #### Histogram Analysis for 1985 and 2024
 The following block generates four histograms:
@@ -124,72 +109,40 @@ NDVI distribution in 2024
 To understand how NDVI and LST values are distributed in the earliest and latest years, histograms were generated for 1985 and 2024. These distributions help reveal the overall range of values, highlight potential outliers, and guide the selection of appropriate clipping thresholds for map visualization (e.g., LST between 20–40 °C and NDVI between 0–0.8). Establishing these thresholds ensures that the final spatial maps remain visually interpretable and are not distorted by extreme or rare pixel values.
 
 #### Spatial Maps of NDVI and LST (1985 vs 2024)
-The following block generates four spatial maps:
-
-LST 1985
-
-LST 2024
-
-NDVI 1985
-
-NDVI 2024
+The following block generates four spatial maps: LST 1985, LST 2024, NDVI 1985, NDVI 2024.
 
 Each map uses manually selected visualization ranges: 
 LST: vmin=20, vmax=40
 NDVI: vmin=0, vmax=0.8
-
 These ranges were chosen based on the histogram analysis above.
-The maps allow visual comparison of: warming patterns, vegetation changes, spatial heterogeneity across Zurich. 
-This step provides the spatial context needed before performing change detection and correlation analysis.
+The maps allow visual comparison of: LST changes, NDVI changes across Zurich. 
+This step provides the spatial context needed before performing change detection and correlation analysis and already allows to detect correlations by eye. 
 
 ### Change Detection
 #### Compute Change Between 1985 and 2024
 These steps extract the LST and NDVI layers for the first and last years in the dataset and compute pixel‑wise differences.
 The resulting rasters (lst_change and ndvi_change) show how temperature and vegetation have changed spatially over nearly four decades.
 #### Histogram Analysis of Change Values
-Histograms of NDVI and LST change values are generated to understand the distribution of changes amd identify whether changes are mostly positive or negative. It also guides the selection of visualization ranges for the maps. This step provides a statistical overview of how much Zurich has warmed and how vegetation has shifted between 1985 and 2024.
+Histograms of NDVI and LST change values are generated to understand the distribution of changes and identify whether changes are mostly positive or negative. It also guides the selection of visualization ranges for the maps. This step provides a statistical overview of how much Zurich has warmed and how vegetation has shifted between 1985 and 2024.
 #### Spatial Maps of NDVI and LST Change
-Two spatial maps are produced:
+Two spatial maps are produced: 
 
-Δ LST (1985–2024) using a diverging red‑blue colormap
+Δ LST (1985–2024) using a diverging red‑blue colormap, where blue indicates cooling and red indicates warming. The range was clipped to −5 to +5 °C for interpretability. 
 
-Blue = cooling
-
-Red = warming
-
-Range clipped to −5 to +5 °C for interpretability
-
-Δ NDVI (1985–2024) using a vegetation‑friendly colormap
-
-Red = vegetation loss
-
-Green = vegetation gain
-
-Range clipped to −0.2 to +0.2
+Δ NDVI (1985–2024) using a vegetation‑friendly (RdYlGn) colormap, where red indictates a decrease in NDVI and green indicates an increase in NDVI, yellow being neutral. The range was clipped to −0.2 to +0.2
 
 These maps reveal where the most significant warming and vegetation changes occurred, allowing spatial patterns to be compared directly.
 
 #### Pixel-wise Linear Trends
-A linear regression is fitted independently for every pixel across the time dimension.
-The slope of this regression represents the rate of change in LST and NDVI over time.
-Because xarray stores time in nanoseconds, the slope is converted to: degrees per year (1e9 * 60 * 60 * 24 * 365.25), and then degrees per decade (*10), which is a better standard to detect long term trends.
+A linear regression is fitted independently for every pixel across the time dimension. The slope of this regression represents the rate of change in LST and NDVI over time. Because xarray stores time in nanoseconds, the slope is converted to: degrees per year (1e9 * 60 * 60 * 24 * 365.25), and then degrees per decade (*10), which is a better standard to detect long term trends.
+#### Histogram Analysis of Trends per Decade
+Histograms of NDVI and LST trends per decade are generated to understand the distribution of trands and identify whether changes are mostly positive or negative. It also guides the selection of visualization ranges for the maps. This step provides a statistical overview of how much Zurich has warmed and how vegetation has shifted per decade between 1985 and 2024.
 
-#### Visualizing NDVI and LST Trends per Deacde 
-LST Trend per Decade
-Uses a diverging red–blue colormap
+#### Visualizing NDVI and LST Trends per Decade 
+LST Trend per Decade uses a diverging red–blue colormap, where blue indicates cooling and red indicates warming. The range was clipped to 0 to 2 °C due to the distribution. It shows long‑term temperature change patterns across Zurich. 
 
-Red = warming
+NDVI Trend per Decade uses a green–yellow–red vegetation colormap, where red indictates a decrease in NDVI and green indicates an increase in NDVI, yellow being neutral. The range was clipped to −0.1 to +0.1.
 
-Blue = cooling
-
-Shows long‑term temperature change patterns across Zurich
-
-NDVI Trend per Decade
-Uses a green–yellow–red vegetation colormap
-
-Green = vegetation gain
-
-Red = vegetation loss
 
 Highlights areas of ecological improvement or degradation
 
