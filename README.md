@@ -1,13 +1,17 @@
 # Spatiotemporal Analysis of LST and NDVI in Zurich (1985–2024)
-## Overview and Research Question
 This workflow processes tri-annual multispectral data from 1985 to 2024. For each year, it computes the Normalized Difference Vegetation Index (NDVI) and Land Surface Temperature (LST), and organizes the results into a multi-year `xarray` datacube. All subsequent analyses are based on this datacube and aim to answer the following research question:
 
 How have Land Surface Temperatures (LST) changed in Zurich between 1985 and 2024, and how do these changes relate to changes in NDVI?
 
+## Reproducing the Environment
+This project requires a specific spatial software stack. To recreate the environment:
+1. Ensure you have Conda installed.
+2. Run: `conda env create -f environment.yml`
+4. Activate: `conda activate XXXX`
+
 ## Data 
-Landsat composites for 14 years between 1985 and 2024
-Stored as GeoTIFF files in data/raw/Landsat/
-Each file contains surface reflectance and thermal bands needed to compute NDVI and LST
+The data are stored as GeoTIFF files in data/raw/Landsat/ and consist of Landsat composites for 14 years between 1985 and 2024. 
+Each file contains surface reflectance and thermal bands needed to compute NDVI and LST.
 
 ## Workflow Overview
 
@@ -51,6 +55,10 @@ Clone the repository:
 git clone <https://github.com/luaskyemar/Urban-Heat-Analysis>
 cd Urban-Heat-Analysis
 ```
+
+## Usage
+Execute the Jupyter Notebook `urban_heat_analysis.ipynb` from top to bottom. Trend maps will be exported to `outputs`.
+
 ## Required Python Packages 
 
 ```python
@@ -61,7 +69,6 @@ import numpy as np
 import matplotlib.ticker as ticker
 import scipy.stats as stats
 ```
-
 ## Workflow Summary 
 ### Data Preparation  
 #### Load the Scenes 
