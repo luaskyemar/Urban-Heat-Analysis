@@ -9,14 +9,29 @@ Each file contains surface reflectance and thermal bands needed to compute NDVI 
 
 ## Workflow Overview
 
-The workflow consists of three main steps:
+1. Data Preparation  
+   - Load Landsat scenes  
+   - Compute NDVI and LST  
+   - Combine all yearly scenes into a multi-year data cube  
 
-1. NONIG FIX
-2. Process each Landsat scene to calculate NDVI and LST  
-3. Combine all yearly scenes into a single data cube
+2. Trend Analysis  
+   - Compute mean NDVI and LST trends over time  
+   - Visualize spatial patterns for start and end years  
+
+3. Change Detection  
+   - Compute pixel-wise change between first and last year  
+   - Generate change maps  
+   - Estimate linear trends per decade  
+
+4. Correlation Analysis  
+   - Compute pixel-wise NDVI–LST correlation  
+   - Apply significance masking  
+   - Analyze correlation evolution over time  
+   - Compute overall correlation across all years  
+
 ## Project Structure
 
-```
+```bash
 Urban-Heat-Analysis/
 │
 ├── data/
