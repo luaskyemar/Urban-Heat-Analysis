@@ -1,6 +1,8 @@
 # Spatiotemporal Analysis of LST and NDVI in Zurich (1985–2024)
 ## Overview and Research Question
-This workflow processes tri-annual multispectral data from 1985 to 2024. It calculates NDVI and Land Surface Temperature (LST) for each year and combines the results into a single time-series data cube using `xarray`.
+This workflow processes tri-annual multispectral data from 1985 to 2024. For each year, it computes the Normalized Difference Vegetation Index (NDVI) and Land Surface Temperature (LST), and organizes the results into a multi-year `xarray` datacube. All subsequent analyses are based on this datacube and aim to answer the following research question:
+
+How have Land Surface Temperatures (LST) changed in Zurich between 1985 and 2024, and how do these changes relate to changes in NDVI?
 
 ## Data 
 Landsat composites for 14 years between 1985 and 2024
@@ -39,11 +41,10 @@ Urban-Heat-Analysis/
 ├── notebooks/
 │   └── analysis.ipynb       # Main analysis notebook
 ├── outputs/                 # Exported plots
-├── src/                     # Source code (optional)
+├── src/                     # 
 └── README.md                # Project documentation
+
 ```
-
-
 Clone the repository:
 
 ```bash
@@ -62,7 +63,7 @@ import scipy.stats as stats
 ```
 
 ## Workflow Summary 
-### Prepare the data 
+### Data Preparation  
 #### Load the Scenes 
 files = ["../data/raw/Landsat/LandsatComposite_Zurich_1985.tif", ...]
 This creates a list of file paths pointing to each Landsat composite you want to process.
@@ -92,7 +93,7 @@ The data cube contains:
 - variables: ndvi, lst
 - coordinates: time, year (same thing, but year is in the appropraite format. 
 
-### First Visualizations of Change over Time
+### Trend Analysis  
 #### Compute Mean NDVI and LST Over Time
 This calculates the spatial mean of LST and NDVI for each year in the datacube.
 By averaging across the x and y dimensions, we obtain a single representative value per year, which is used to analyze long‑term temporal trends.
@@ -140,7 +141,7 @@ These ranges were chosen based on the histogram analysis above.
 The maps allow visual comparison of: warming patterns, vegetation changes, spatial heterogeneity across Zurich. 
 This step provides the spatial context needed before performing change detection and correlation analysis.
 
-### NDVI & LST Change Analysis (1985–2024)
+### Change Detection
 #### Compute Change Between 1985 and 2024
 These steps extract the LST and NDVI layers for the first and last years in the dataset and compute pixel‑wise differences.
 The resulting rasters (lst_change and ndvi_change) show how temperature and vegetation have changed spatially over nearly four decades.
@@ -193,7 +194,7 @@ Highlights areas of ecological improvement or degradation
 
 The robust=True argument ensures that extreme outliers do not distort the color scale.
 
-### NDVI–LST Correlation
+### Correlation Analysis
 #### Pixel‑wise Correlation Between NDVI and LST
 A pixel‑wise Pearson correlation is computed between NDVI and LST across the full 1985–2024 time series.
 For each pixel location, this calculation measures how vegetation and surface temperature co‑vary over time:
