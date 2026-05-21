@@ -3,12 +3,6 @@ This workflow processes tri-annual multispectral data from 1985 to 2024. For eac
 
 How have Land Surface Temperatures (LST) changed in Zurich between 1985 and 2024, and how do these changes relate to changes in NDVI?
 
-## Reproducing the Environment
-This project requires a specific spatial software stack. To recreate the environment:
-1. Ensure you have Conda installed.
-2. Run: `conda env create -f environment.yml`
-4. Activate: `conda activate XXXX`
-
 ## Data 
 The data are stored as GeoTIFF files in data/raw/Landsat/ and consist of Landsat composites for 14 years between 1985 and 2024. 
 Each file contains surface reflectance and thermal bands needed to compute NDVI and LST.
