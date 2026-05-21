@@ -14,17 +14,19 @@ The workflow consists of three main steps:
 1. NONIG FIX
 2. Process each Landsat scene to calculate NDVI and LST  
 3. Combine all yearly scenes into a single data cube
-## Repository Structure
+## Project Structure
 
+```
 Urban-Heat-Analysis/
 │
 ├── data/
 │   └── raw/Landsat/         # Input Landsat composites
 ├── notebooks/
 │   └── analysis.ipynb       # Main analysis notebook
-├── outputs/  # Exported plots
-├── src/ 
-└── README.md
+├── outputs/                 # Exported plots
+├── src/                     # Source code (optional)
+└── README.md                # Project documentation
+```
 
 
 Clone the repository:
