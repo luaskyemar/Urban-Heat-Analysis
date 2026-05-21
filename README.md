@@ -1,6 +1,4 @@
-# Project Title
-Zurich Urban Heat Analysis
-
+# Spatiotemporal Analysis of LST and NDVI in Zurich (1985–2024)
 ## Overview and Research Question
 This workflow processes tri-annual multispectral data from 1985 to 2024. It calculates NDVI and Land Surface Temperature (LST) for each year and combines the results into a single time-series data cube using `xarray`.
 
@@ -33,7 +31,7 @@ Clone the repository:
 
 ```bash
 git clone <https://github.com/luaskyemar/Urban-Heat-Analysis>
-cd my-project
+cd Urban-Heat-Analysis
 ```
 ## Required Python Packages 
 
