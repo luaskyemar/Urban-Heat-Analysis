@@ -1,8 +1,9 @@
 # macOS
 .DS_Store
-**/.DS_Store
 
 # Jupyter
 .ipynb_checkpoints/
-**/.ipynb_checkpoints/
 
+# Python
+__pycache__/
+*.pyc
