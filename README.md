@@ -39,8 +39,7 @@ Urban-Heat-Analysis/
 ├── notebooks/
 │   └── urban_heat_analysis.ipynb  # Main analysis notebook
 |   └── RGB.ipynb            # RGB composites for the report 
-├── outputs/                 # Exported plots
-├── src/                     # 
+├── outputs/                 # Exported plots                   # 
 └── README.md                # Project documentation
 
 ```
