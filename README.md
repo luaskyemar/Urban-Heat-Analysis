@@ -141,10 +141,7 @@ Histograms of NDVI and LST trends per decade are generated to understand the dis
 #### Visualizing NDVI and LST Trends per Decade 
 LST Trend per Decade uses a diverging red–blue colormap, where blue indicates cooling and red indicates warming. The range was clipped to 0 to 2 °C due to the distribution. It shows long‑term temperature change patterns across Zurich. 
 
-NDVI Trend per Decade uses a green–yellow–red vegetation colormap, where red indictates a decrease in NDVI and green indicates an increase in NDVI, yellow being neutral. The range was clipped to −0.1 to +0.1.
-
-
-Highlights areas of ecological improvement or degradation
+NDVI Trend per Decade uses a green–yellow–red vegetation colormap, where red indictates a decrease in NDVI and green indicates an increase in NDVI, yellow being neutral. The range was clipped to −0.1 to +0.1. It shows long‑term NDVI change patterns across Zurich. 
 
 The robust=True argument ensures that extreme outliers do not distort the color scale.
 
