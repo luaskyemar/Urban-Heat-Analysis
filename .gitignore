@@ -1,0 +1,8 @@
+# macOS system file
+.DS_Store
+
+# Jupyter Notebook checkpoints (in any folder)
+**/.ipynb_checkpoints/
+
+# (optional) also catch any variation
+.ipynb_checkpoints/
