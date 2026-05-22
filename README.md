@@ -30,18 +30,20 @@ Each file contains surface reflectance and thermal bands needed to compute NDVI 
    - Compute overall correlation across all years  
 
 ## Project Structure
-
 ```bash
 Urban-Heat-Analysis/
 │
 ├── data/
-│   └── raw/Landsat/         # Input Landsat composites
+│   └── raw/
+│       └── Landsat/               # Input Landsat composites
+│
 ├── notebooks/
-│   └── urban_heat_analysis.ipynb  # Main analysis notebook
-│   └── RGB.ipynb            # RGB composites for the report 
-├── outputs/                 # Exported plots
-└── README.md                # Project documentation
-
+│   ├── urban_heat_analysis.ipynb  # Main analysis notebook
+│   └── RGB.ipynb                  # RGB composites for the report
+│
+├── outputs/                       # Exported plots
+│
+└── README.md                      # Project documentation
 ```
 Clone the repository:
 
