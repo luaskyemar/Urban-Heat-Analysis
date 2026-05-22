@@ -74,7 +74,7 @@ Then the list of integers is converted into proper datetime objects, which xarra
 Each Landsat scene is processed using the function `process_scene()`.
 The function:
 - opens the raster file with `xarray`
-- extracts the red, near-infrared, and thermal bands (The band selection assumes the following structure: Band 3 = Red, Band 4 = Near- infrared (NIR), Band 7 = Thermal)
+- extracts the red, near-infrared, and thermal bands (the band selection is based on the following structure: Band 3 = Red, Band 4 = Near- infrared (NIR), Band 7 = Thermal)
 - calculates NDVI
 - estimates land surface emissivity from NDVI
 - calculates Land Surface Temperature in Celsius
