@@ -96,15 +96,7 @@ By averaging across the x and y dimensions, we obtain a single representative va
 This figure shows how mean NDVI and mean LST evolved between 1985 and 2024. LST is plotted on the left y‑axis (red), while NDVI is plotted on the right y‑axis (green). Both share the same x‑axis (years). This dual‑axis plot provides an overview of NDVI and LST dynamics over time.
 
 #### Histogram Analysis for 1985 and 2024
-The following block generates four histograms:
-
-LST distribution in 1985
-
-LST distribution in 2024
-
-NDVI distribution in 1985
-
-NDVI distribution in 2024
+The following block generates four histograms: LST distribution 1985, LST distribution 2024, NDVI distribution 1985, NDVI distribution 2024.
 
 To understand how NDVI and LST values are distributed in the earliest and latest years, histograms were generated for 1985 and 2024. These distributions help reveal the overall range of values, highlight potential outliers, and guide the selection of appropriate clipping thresholds for map visualization (e.g., LST between 20–40 °C and NDVI between 0–0.8). Establishing these thresholds ensures that the final spatial maps remain visually interpretable and are not distorted by extreme or rare pixel values.
 
