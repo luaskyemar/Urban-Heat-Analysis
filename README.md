@@ -38,7 +38,7 @@ Urban-Heat-Analysis/
 │   └── raw/Landsat/         # Input Landsat composites
 ├── notebooks/
 │   └── urban_heat_analysis.ipynb  # Main analysis notebook
-|   └── RGB.ipynb            # RGB composites for the report 
+│   └── RGB.ipynb            # RGB composites for the report 
 ├── outputs/                 # Exported plots                   # 
 └── README.md                # Project documentation
 
