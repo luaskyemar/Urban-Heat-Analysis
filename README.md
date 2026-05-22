@@ -150,11 +150,11 @@ Near zero → weak or no relationship
 This produces a spatial correlation map (corr_map) that reveals where vegetation most strongly influences surface temperature.
 
 #### Visualizing the Correlation Map
-The correlation map is displayed using a diverging red–blue colormap:
+The correlation map is displayed using a diverging Purple-Orange colormap:
 
-Blue = strong negative NDVI–LST relationship
+Orange = strong negative NDVI–LST relationship
 
-Red = strong positive relationship
+Purple = strong positive relationship
 
 White = weak or no correlation
 
